@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <div id="card" class="item highlight">Card</div>
+    <div class="item">Another</div>
+
+    <script>
+      // Get elements by class name (LIVE HTMLCollection)
+      const byClass = document.getElementsByClassName('item');
+
+      // First matching element
+      const firstQuery = document.querySelector('.item');
+
+      // All matching elements (STATIC NodeList)
+      const allQuery = document.querySelectorAll('.item');
+
+      console.log(byClass, firstQuery, allQuery);
+
+      // Loop through NodeList
+      allQuery.forEach((el, i) => console.log(i, el.textContent));
+    </script>
+
+  </body>
+</html>
