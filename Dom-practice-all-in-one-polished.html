@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript DOM Practice – All in One (Final)</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f4f6f8;
+    }
+
+    section {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #34495e;
+    }
+
+    button {
+      margin-top: 5px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+
+    input, textarea, select {
+      padding: 6px;
+      margin-top: 5px;
+      width: 220px;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+
+    .box {
+      width: 150px;
+      height: 150px;
+      border: 1px solid #333;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>JavaScript DOM – Complete Practice File</h1>
+
+<!-- 1. Change Text -->
+<section>
+  <h2>1. Change Text Using JavaScript</h2>
+  <p id="text">Hello World</p>
+  <button onclick="changeText()">Change Text</button>
+</section>
+
+<!-- 2. Change CSS Style -->
+<section>
+  <h2>2. Change CSS Style Using JavaScript</h2>
+  <p id="stylePara">Change my style</p>
+  <button onclick="changeStyle()">Change Style</button>
+</section>
+
+<!-- 3. Button Click Event -->
+<section>
+  <h2>3. Button Click Event</h2>
+  <button id="clickBtn">Click Me</button>
+</section>
+
+<!-- 4. Form Validation -->
+<section>
+  <h2>4. Form Validation</h2>
+  <form onsubmit="return validateForm()">
+    <input type="text" id="username" placeholder="Enter name">
+    <br>
+    <span id="formError" class="error"></span>
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+</section>
+
+<!-- 5. Show / Hide Password -->
+<section>
+  <h2>5. Show / Hide Password</h2>
+  <input type="password" id="password">
+  <button onclick="togglePassword()">Show / Hide</button>
+</section>
+
+<!-- 6. Counter -->
+<section>
+  <h2>6. Counter Using Buttons</h2>
+  <p id="counter">0</p>
+  <button onclick="increment()">+</button>
+  <button onclick="decrement()">-</button>
+</section>
+
+<!-- 7. Calculator -->
+<section>
+  <h2>7. Calculator Using DOM</h2>
+  <input type="number" id="num1" placeholder="Number 1">
+  <input type="number" id="num2" placeholder="Number 2">
+  <br><br>
+  <button onclick="calculate('+')">+</button>
+  <button onclick="calculate('-')">-</button>
+  <button onclick="calculate('*')">*</button>
+  <button onclick="calculate('/')">/</button>
+  <p id="calcResult"></p>
+</section>
+
+<!-- 8. Change Image (Offline Safe) -->
+<section>
+  <h2>8. Change Image on Click (Offline Safe)</h2>
+  <div id="imageBox" class="box"></div>
+  <button onclick="changeImage()">Change Image</button>
+</section>
+
+<!-- 9. Dropdown Selection -->
+<section>
+  <h2>9. Dropdown Value Selection</h2>
+  <select onchange="selectValue(this)">
+    <option value="">Select</option>
+    <option>Java</option>
+    <option>JavaScript</option>
+    <option>Python</option>
+  </select>
+  <p id="selectedValue"></p>
+</section>
+
+<!-- 10. Character Counter -->
+<section>
+  <h2>10. Character Counter</h2>
+  <textarea rows="4" cols="40" oninput="countCharacters(this)"></textarea>
+  <p>Characters: <span id="charCount">0</span></p>
+</section>
+
+<script>
+  /* 1. Change Text */
+  function changeText() {
+    document.getElementById("text").innerText = "Text Changed Successfully!";
+  }
+
+  /* 2. Change CSS Style */
+  function changeStyle() {
+    let p = document.getElementById("stylePara");
+    p.style.color = "white";
+    p.style.backgroundColor = "green";
+    p.style.padding = "10px";
+  }
+
+  /* 3. Button Click Event */
+  document.getElementById("clickBtn").addEventListener("click", function () {
+    alert("Button Click Event Triggered");
+  });
+
+  /* 4. Form Validation */
+  function validateForm() {
+    let name = document.getElementById("username").value;
+    let error = document.getElementById("formError");
+
+    if (name.trim() === "") {
+      error.innerText = "Name cannot be empty";
+      return false;
+    }
+
+    error.innerText = "";
+    alert("Form Submitted Successfully");
+    return true;
+  }
+
+  /* 5. Show / Hide Password */
+  function togglePassword() {
+    let pwd = document.getElementById("password");
+    pwd.type = pwd.type === "password" ? "text" : "password";
+  }
+
+  /* 6. Counter */
+  let count = 0;
+  function increment() {
+    document.getElementById("counter").innerText = ++count;
+  }
+  function decrement() {
+    document.getElementById("counter").innerText = --count;
+  }
+
+  /* 7. Calculator */
+  function calculate(op) {
+    let a = Number(document.getElementById("num1").value);
+    let b = Number(document.getElementById("num2").value);
+    let result;
+
+    if (op === '+') result = a + b;
+    if (op === '-') result = a - b;
+    if (op === '*') result = a * b;
+    if (op === '/') result = b !== 0 ? a / b : "Cannot divide by zero";
+
+    document.getElementById("calcResult").innerText = "Result: " + result;
+  }
+
+  /* 8. Change Image (Color Toggle Box) */
+  let isBlue = false;
+  function changeImage() {
+    let box = document.getElementById("imageBox");
+    box.style.backgroundColor = isBlue ? "#BBB" : "#3498db";
+    isBlue = !isBlue;
+  }
+
+  /* 9. Dropdown Selection */
+  function selectValue(el) {
+    document.getElementById("selectedValue").innerText =
+      "Selected: " + el.value;
+  }
+
+  /* 10. Character Counter */
+  function countCharacters(el) {
+    document.getElementById("charCount").innerText = el.value.length;
+  }
+</script>
+
+</body>
+</html>

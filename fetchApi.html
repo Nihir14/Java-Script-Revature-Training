@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fetch with Promises</title>
+</head>
+<body>
+  <h2>Fetch User & Posts using Promises</h2>
+  <button onclick="fetchDataWithPromises()">Fetch Data</button>
+
+  <script>
+    function fetchDataWithPromises() {
+      fetch("https://jsonplaceholder.typicode.com/users/1")
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch user");
+          }
+          return response.json();
+        })
+        .then(user => {
+          console.log("User data:", user);
+
+          // ✅ CORRECT ENDPOINT
+          return fetch(
+            `https://jsonplaceholder.typicode.com/posts?userId=${user.id}`
+          );
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Failed to fetch posts");
+          }
+          return response.json();
+        })
+        .then(posts => {
+          console.log("User posts:", posts);
+        })
+        .catch(error => {
+          console.error("Error:", error.message);
+        });
+    }
+  </script>
+</body>
+</html>
